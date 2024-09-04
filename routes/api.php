@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('admin')->group(function () {
+    Route::post('/login', [LoginController::class, 'index', ['as' => 'admin']]);
+
+    Route::group(['middleware' => 'auth:api_admin'], function ()
+    {
+        // * data user
+        Route::get('/user', [LoginController::class, 'getUser', ['as' => 'admin']]);
+
+        // * refresh token jwt
+        Route::get('/refresh', [LoginController::class, 'refreshToken', ['as' => 'admin']]);
+
+        // * logout
+        Route::post('/logout', [LoginController::class, 'logout', ['as' => 'admin']]);
+    });
 });
+
