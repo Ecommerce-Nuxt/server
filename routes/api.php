@@ -16,18 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('admin')->group(function () {
-    Route::post('/login', [LoginController::class, 'index', ['as' => 'admin']]);
+    Route::post('/login', [LoginController::class, 'index', ['as' => 'admin.login']]);
 
     Route::group(['middleware' => 'auth:api_admin'], function ()
     {
         // * data user
-        Route::get('/user', [LoginController::class, 'getUser', ['as' => 'admin']]);
+        Route::get('/user', [LoginController::class, 'getUser', ['as' => 'admin.getUser']]);
 
         // * refresh token jwt
-        Route::get('/refresh', [LoginController::class, 'refreshToken', ['as' => 'admin']]);
+        Route::get('/refresh', [LoginController::class, 'refreshToken', ['as' => 'admin.refresh']]);
 
         // * logout
-        Route::post('/logout', [LoginController::class, 'logout', ['as' => 'admin']]);
+        Route::post('/logout', [LoginController::class, 'logout', ['as' => 'admin.logout']]);
     });
 });
 
