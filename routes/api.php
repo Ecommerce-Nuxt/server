@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\DashbardController;
 use App\Http\Controllers\Api\Admin\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,9 @@ Route::prefix('admin')->group(function () {
 
         // * logout
         Route::post('/logout', [LoginController::class, 'logout', ['as' => 'admin.logout']]);
+
+        // * dashboard
+        Route::get('/dashboard', [DashbardController::class, 'index', ['as' => 'admin.dashboard']] );
     });
 });
 
