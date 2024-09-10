@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DashbardController;
 use App\Http\Controllers\Api\Admin\LoginController;
 use Illuminate\Http\Request;
@@ -32,6 +33,9 @@ Route::prefix('admin')->group(function () {
 
         // * dashboard
         Route::get('/dashboard', [DashbardController::class, 'index', ['as' => 'admin.dashboard']] );
+
+        // * categories resource
+        Route::resource('/categories', CategoryController::class, ['except' => ['create','edit'], 'as' => 'admin']);
     });
 });
 
